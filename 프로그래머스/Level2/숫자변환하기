@@ -1,0 +1,43 @@
+import java.util.*;
+
+class Solution {
+    public int solution(int x, int y, int n) {
+        int answer = 0;
+        Queue<Integer> que = new LinkedList<>();
+        boolean[] map = new boolean[1000001];
+        que.add(x);
+        
+        if((y % 3*x != 0 && y % 2*x != 0) && y % (n+x) != 0) 
+            return -1;
+        
+        while(!que.isEmpty()){
+            
+            int size = que.size();
+            
+            for(int i = 0; i < size; i++){
+                int temp = que.poll();
+                 
+                if(temp == y) return answer;
+                
+                if(temp + n <= y && map[temp + n] == false) {
+                    que.add(temp + n);
+                    map[temp + n] = true;
+                }
+                    
+                                    
+                if(temp * 2 <= y && map[temp * 2] == false){
+                    que.add(temp * 2);
+                    map[temp * 2] = true;
+                }
+                                    
+                if(temp * 3 <= y && map[temp * 3] == false) {
+                    que.add(temp * 3);   
+                    map[temp * 3] = true;
+                }
+            }
+            answer++;
+        }
+        
+        return -1;
+    }
+}
